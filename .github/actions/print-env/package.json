@@ -1,0 +1,11 @@
+{
+  "name": "print-env",
+  "version": "1.0.0",
+  "description": "A GitHub Action to print environment variables",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "dependencies": {}
+}
+

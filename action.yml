@@ -1,0 +1,13 @@
+name: Print Environment Variables
+description: A GitHub Action to print environment variables.
+author: Your Name
+branding:
+  color: 'purple'
+  logo: 'https://path-to-your-logo.png'
+inputs:
+  envs:
+    description: List of environment variables to print.
+    required: false
+    default: 'ALL'
+runs:
+  using: 'node12'
