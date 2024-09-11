@@ -1,0 +1,20 @@
+name: 'Print Environment Variables'
+description: 'A GitHub Action to print environment variables'
+inputs:
+  envs:
+    description: 'List of environment variables to print'
+    required: false
+    default: 'ALL'
+runs:
+  using: 'node12'
+  steps:
+    - name: Print Environment Variables
+      run: |
+        if [ "${{ inputs.envs }}" = "ALL" ]; then
+          env
+        else
+          for var in ${{ inputs.envs }}; do
+            echo "$var=${!var}"
+          done
+        fi
+
