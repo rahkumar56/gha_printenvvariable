@@ -1,22 +1,14 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
- test:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,7 +17,31 @@ jobs:
       - name: Run Print Env Action
         uses: rahkumar56/gha_printenvvariable/.github/actions/print-env@main
         with:
-          envs: 'VAR1,VAR2'
+          envs: 'VAR1,VAR2,ONE_LINE_SECRET,MULTILINE_SECRET,JSON_SECRET,FILE_SECRET'
         env:
           VAR1: 'value1'
           VAR2: 'value2'
+          ONE_LINE_SECRET: ${{ secrets.ONE_LINE_SECRET }}
+          MULTILINE_SECRET: ${{ secrets.MULTILINE_SECRET }}
+          JSON_SECRET: ${{ secrets.JSON_SECRET }}
+          FILE_SECRET: ${{ secrets.FILE_SECRET }}
+
+      - name: Print Multiline Secret
+        run: |
+          echo "Multiline Secret:"
+          echo "${{ secrets.MULTILINE_SECRET }}" | while read -r line; do
+            echo "$line"
+          done
+        shell: bash
+
+      - name: Print JSON Secret
+        run: |
+          echo "JSON Secret:"
+          echo "${{ secrets.JSON_SECRET }}" | jq '.'
+        shell: bash
+
+      - name: Handle File Secret
+        run: |
+          echo "${{ secrets.FILE_SECRET }}" > secret_file.txt
+          cat secret_file.txt
+        shell: bash
