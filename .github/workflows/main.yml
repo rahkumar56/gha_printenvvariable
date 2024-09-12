@@ -34,14 +34,14 @@ jobs:
           done
         shell: bash
 
-      - name: Print JSON Secret
-        run: |
-          echo "JSON Secret:"
-          echo "${{ secrets.JSON_SECRET }}" | jq '.'
-        shell: bash
-
       - name: Handle File Secret
         run: |
           echo "${{ secrets.FILE_SECRET }}" > secret_file.txt
           cat secret_file.txt
+        shell: bash
+
+      - name: Print JSON Secret
+        run: |
+          echo "JSON Secret:"
+          echo "${{ secrets.JSON_SECRET }}" | jq '.'
         shell: bash
