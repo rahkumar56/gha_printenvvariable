@@ -5,11 +5,12 @@ inputs:
     description: 'List of environment variables to print'
     required: false
     default: 'ALL'
+
 runs:
-  using: 'node12'
+  using: 'composite'
   steps:
     - name: Print Environment Variables
-     shell: bash
+      shell: bash
       run: |
         if [ "${{ inputs.envs }}" = "ALL" ]; then
           env
@@ -18,4 +19,3 @@ runs:
             echo "$var=${!var}"
           done
         fi
-
