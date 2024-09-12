@@ -9,9 +9,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Print Environment Variables
-      shell: bash
-      run: |
+    - run: |
         if [ "${{ inputs.envs }}" = "ALL" ]; then
           env
         else
@@ -19,3 +17,4 @@ runs:
             echo "$var=${!var}"
           done
         fi
+      shell: bash
