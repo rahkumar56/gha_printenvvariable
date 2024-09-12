@@ -9,6 +9,7 @@ runs:
   using: 'node12'
   steps:
     - name: Print Environment Variables
+     shell: bash
       run: |
         if [ "${{ inputs.envs }}" = "ALL" ]; then
           env
