@@ -2,7 +2,7 @@ name: 'Print Environment Variables'
 description: 'A GitHub Action to print environment variables'
 inputs:
   envs:
-    description: 'List of environment variables to print'
+    description: 'Comma-separated list of environment variables to print'
     required: false
     default: 'ALL'
 
@@ -11,9 +11,12 @@ runs:
   steps:
     - run: |
         if [ "${{ inputs.envs }}" = "ALL" ]; then
+          # Print all environment variables
           env
         else
-          for var in ${{ inputs.envs }}; do
+          # Split the comma-separated list into an array and iterate through it
+          IFS=',' read -ra VAR_LIST <<< "${{ inputs.envs }}"
+          for var in "${VAR_LIST[@]}"; do
             echo "$var=${!var}"
           done
         fi
